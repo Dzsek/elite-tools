@@ -40,7 +40,7 @@ export default function CarrierRow({data, onStateChange}){
             </div>
             <span>{data.cost.toLocaleString('en-GB')} CR</span>
             <span>{(data.core ? data.upkeep.active : (selectedUpkeep==="none" ? 0 : data.upkeep[selectedUpkeep])).toLocaleString('en-GB')} CR</span>
-            <span>{data.cargo}T</span>
+            <span>{data.cargo.toLocaleString('en-GB')} T</span>
         </div>
     )
 }

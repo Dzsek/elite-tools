@@ -83,7 +83,7 @@ function App() {
         gap: "0.5rem"
       }}>
         <span>Total Cost:</span><span>{totals.cost.toLocaleString('en-GB')} CR</span>
-        <span>Cargo Space:</span><span>{(-totals.cargo)} T</span>
+        <span>Cargo Space:</span><span>{(-totals.cargo).toLocaleString('en-GB')} T</span>
         <span>Upkeep (Weekly):</span><span>{totals.upkeep.toLocaleString('en-GB')} CR</span>
         <span>Upkeep (Monthly):</span><span>{Math.round(totals.upkeep/7*30).toLocaleString('en-GB')} CR</span>
         <span>Upkeep (Yearly):</span><span>{Math.round(totals.upkeep/7*365).toLocaleString('en-GB')} CR</span>
