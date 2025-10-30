@@ -103,7 +103,7 @@ function App() {
         <span>Upkeep (Weekly):</span><span>{totals.upkeep.toLocaleString('en-GB')} CR</span>
         <span>Upkeep (Monthly):</span><span>{Math.round(totals.upkeep/7*30).toLocaleString('en-GB')} CR</span>
         <span>Upkeep (Yearly):</span><span>{Math.round(totals.upkeep/7*365).toLocaleString('en-GB')} CR</span>
-        <div style={{ display: "flex", gap: "0.5rem"}}><span>Buget:</span><input min={0} style={{textAlign:"center"}} type='number' step={1000000} value={buget} onChange={(e)=>updateBuget(Math.round(e.target.value))}/></div><span>{buget.toLocaleString("en-GB")} CR</span>
+        <div style={{ display: "flex", gap: "0.5rem"}}><span>Budget:</span><input min={0} style={{textAlign:"center"}} type='number' step={1000000} value={buget} onChange={(e)=>updateBuget(Math.round(e.target.value))}/></div><span>{buget.toLocaleString("en-GB")} CR</span>
         <span>Covered until:</span><span>{buget>0 ? `${coveredUntil.format("YYYY MMM DD")} (${coveredUntilDuration})` : "Input available buget"}</span>
       </div>
     </div>
