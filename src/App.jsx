@@ -22,12 +22,28 @@ function App() {
     {name: "Pioneer Supplies", cost: 250000000, upkeep: {suspended: 1500000, active: 5000000}, cargo: 200}
   ];
 
-  const [services, setServices] = useState({
+  const [services, setServices] = useState(JSON.parse(localStorage.getItem("baseservices")) || {
     [core.name]: { cost: core.cost, upkeep: core.upkeep.active, cargo: -25000}
   });
 
-  const [jumps, setJumps] = useState(0);
-  const [buget, setBuget] = useState(0);
+  const updateServices = (param)=>{
+    setServices(param);
+    localStorage.setItem("baseservices", JSON.stringify(param));
+  }
+
+  const [jumps, setJumps] = useState(Number.parseInt(localStorage.getItem("basejumps")) || 0);
+
+  const updateJumps = (param)=>{
+    setJumps(param);
+    localStorage.setItem("basejumps", param);
+  }
+  
+  const [buget, setBuget] = useState(Number.parseInt(localStorage.getItem("basebuget")) || 0);
+
+  const updateBuget = (param)=>{
+    setBuget(param);
+    localStorage.setItem("basebuget", param);
+  }
 
   const serviceTotals = Object.values(services).reduce((a,c)=>{
     return {
@@ -63,12 +79,12 @@ function App() {
       </div>
       {data.map(x=>(
         <CarrierRow key={x.name} data={x} onStateChange={(e)=>{
-          setServices({...services, [x.name]: e})
+          updateServices({...services, [x.name]: e})
         }}/>
       ))}
       <div style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: "0.5rem"}}>
         <span>Planned Jumps per Week</span>
-        <input min={0} style={{textAlign:"center"}} type='number' value={jumps} onChange={(e)=>setJumps(Math.round(e.target.value))}/>
+        <input min={0} style={{textAlign:"center"}} type='number' value={jumps} onChange={(e)=>updateJumps(Math.round(e.target.value))}/>
         <span></span>
         <span>{(jumps*100000).toLocaleString('en-GB')} CR</span>
         <span></span>
@@ -87,7 +103,7 @@ function App() {
         <span>Upkeep (Weekly):</span><span>{totals.upkeep.toLocaleString('en-GB')} CR</span>
         <span>Upkeep (Monthly):</span><span>{Math.round(totals.upkeep/7*30).toLocaleString('en-GB')} CR</span>
         <span>Upkeep (Yearly):</span><span>{Math.round(totals.upkeep/7*365).toLocaleString('en-GB')} CR</span>
-        <div style={{ display: "flex", gap: "0.5rem"}}><span>Buget:</span><input min={0} style={{textAlign:"center"}} type='number' step={1000000} value={buget} onChange={(e)=>setBuget(Math.round(e.target.value))}/></div><span>{buget.toLocaleString("en-GB")} CR</span>
+        <div style={{ display: "flex", gap: "0.5rem"}}><span>Buget:</span><input min={0} style={{textAlign:"center"}} type='number' step={1000000} value={buget} onChange={(e)=>updateBuget(Math.round(e.target.value))}/></div><span>{buget.toLocaleString("en-GB")} CR</span>
         <span>Covered until:</span><span>{buget>0 ? `${coveredUntil.format("YYYY MMM DD")} (${coveredUntilDuration})` : "Input available buget"}</span>
       </div>
     </div>

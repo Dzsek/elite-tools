@@ -8,10 +8,11 @@ const getCosts = (state, data)=>{
 }
 
 export default function CarrierRow({data, onStateChange}){
-    const [selectedUpkeep, setSelectedUpkeep] = useState("none"); //none, suspended, active
+    const [selectedUpkeep, setSelectedUpkeep] = useState(localStorage.getItem(data.name) || "none"); //none, suspended, active
 
     const updateState = (state)=>{
         setSelectedUpkeep(state);
+        localStorage.setItem(data.name, state);
         const {cost, upkeep, cargo} = getCosts(state, data);
         onStateChange({
             state,
